@@ -32,6 +32,7 @@ def parse_extra_frontend_settings(envvars):
                     settings_dict[port] = settings
     return settings_dict
 
+
 def parse_additional_backend_settings(envvars):
     settings_dict = {}
     if isinstance(envvars, os._Environ) or isinstance(envvars, dict):
@@ -46,6 +47,7 @@ def parse_additional_backend_settings(envvars):
                 else:
                     settings_dict[server] = settings
     return settings_dict
+
 
 # envvar
 ADDITIONAL_BACKENDS = parse_additional_backend_settings(os.environ)
@@ -82,6 +84,7 @@ STATS_PORT = os.getenv("STATS_PORT", "1936")
 TIMEOUT = os.getenv("TIMEOUT", "connect 5000, client 50000, server 50000")
 NBPROC = int(os.getenv("NBPROC", 1))
 SWARM_MODE_POLLING_INTERVAL = int(os.getenv("SWARM_MODE_POLLING_INTERVAL", 5))
+SWARM_MODE_DISABLE_SERVICE = os.getenv("SWARM_MODE_DISABLE_SERVICE", "")
 
 # global
 RUNNING_MODE = None
@@ -94,6 +97,7 @@ HAPROXY_RUN_COMMAND = ['/usr/sbin/haproxy', '-f', HAPROXY_CONFIG_FILE, '-db', '-
 API_RETRY = 10  # seconds
 PID_FILE = "/tmp/dockercloud-haproxy.pid"
 SERVICE_PORTS_ENVVAR_NAME = "SERVICE_PORTS"
+LABEL_SWARM_MODE_DEACTIVATE = "com.docker.dockercloud.haproxy.deactivate"
 
 # regular expressions
 SERVICE_NAME_MATCH = re.compile(r"(.+)_\d+$")
