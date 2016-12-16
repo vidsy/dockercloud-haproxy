@@ -120,7 +120,6 @@ class Haproxy(object):
         haproxy_container_id = os.environ.get("HOSTNAME", "")
         Haproxy.cls_service_id, Haproxy.cls_nets = SwarmModeLinkHelper.get_swarm_mode_haproxy_id_nets(docker,
                                                                                                       haproxy_container_id)
-        service_disabled = [x.strip() for x in SWARM_MODE_DISABLE_SERVICE.strip().split(",") if x.strip()]
         links, Haproxy.cls_linked_tasks = SwarmModeLinkHelper.get_swarm_mode_links(docker, Haproxy.cls_service_id,
                                                                                    Haproxy.cls_nets)
         logger.info("Linked service: %s", ", ".join(SwarmModeLinkHelper.get_service_links_str(links)))
