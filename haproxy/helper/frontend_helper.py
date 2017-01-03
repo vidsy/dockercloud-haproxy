@@ -137,7 +137,7 @@ def get_bind_string(port, ssl_bind_string, vhosts):
 def config_default_frontend(ssl_bind_string):
     cfg = OrderedDict()
     monitor_uri_configured = False
-    frontend = [("bind :80 %s" % EXTRA_BIND_SETTINGS.get('80', "")).strip()]
+    frontend = [("bind :5001 %s" % EXTRA_BIND_SETTINGS.get('80', "")).strip()]
 
     # add x-forwarded-porto header if not skipped
     if not SKIP_FORWARDED_PROTO:

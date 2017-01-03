@@ -45,17 +45,17 @@ class SpecsTestCase(unittest.TestCase):
                              'health_check': None, 'cookie': None, 'virtual_host': 'b.com', 'force_ssl': None,
                              'tcp_ports': [], 'balance': None, 'extra_settings': None, 'appsession': None,
                              'option': []}}
-        vhosts = [{'path': '', 'host': 'a.com', 'scheme': 'http', 'port': '80', 'service_alias': 'WORLD'},
-                  {'path': '', 'host': 'b.com', 'scheme': 'http', 'port': '80', 'service_alias': 'HELLO'}]
+        vhosts = [{'path': '', 'host': 'a.com', 'scheme': 'http', 'port': '5001', 'service_alias': 'WORLD'},
+                  {'path': '', 'host': 'b.com', 'scheme': 'http', 'port': '5001', 'service_alias': 'HELLO'}]
         updated_details = {
             'WORLD': {'default_ssl_cert': '', 'ssl_cert': '', 'virtual_host_weight': 0, 'hsts_max_age': None,
                       'gzip_compression_type': None, 'http_check': None, 'health_check': None, 'cookie': None,
-                      'virtual_host': [{'path': '', 'host': 'a.com', 'scheme': 'http', 'port': '80'}],
+                      'virtual_host': [{'path': '', 'host': 'a.com', 'scheme': 'http', 'port': '5001'}],
                       'exclude_ports': [], 'force_ssl': None, 'tcp_ports': [], 'balance': None, 'extra_settings': None,
                       'appsession': None, 'virtual_host_str': 'a.com', 'option': []},
             'HELLO': {'default_ssl_cert': '', 'ssl_cert': '', 'virtual_host_weight': 0, 'hsts_max_age': None,
                       'gzip_compression_type': None, 'http_check': None, 'health_check': None, 'cookie': None,
-                      'virtual_host': [{'path': '', 'host': 'b.com', 'scheme': 'http', 'port': '80'}],
+                      'virtual_host': [{'path': '', 'host': 'b.com', 'scheme': 'http', 'port': '5001'}],
                       'exclude_ports': [], 'force_ssl': None, 'tcp_ports': [], 'balance': None, 'extra_settings': None,
                       'appsession': None, 'virtual_host_str': 'b.com', 'option': []}}
 

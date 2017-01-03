@@ -48,7 +48,7 @@ class Specs(object):
                     pr = urlparse.urlparse(h)
                     if not pr.netloc:
                         pr = urlparse.urlparse("http://%s" % h)
-                    port = '443' if pr.scheme.lower() in ['https', 'wss'] else "80"
+                    port = '443' if pr.scheme.lower() in ['https', 'wss'] else "5001"
                     host = pr.netloc
                     if ":" in pr.netloc:
                         host_port = pr.netloc.split(":")
