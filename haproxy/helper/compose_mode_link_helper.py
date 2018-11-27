@@ -110,7 +110,7 @@ def _get_linked_compose_services(networks, project):
         terms = link.strip().split(":")
         service = terms[0].strip()
         if service and service.startswith(prefix):
-            last = service.rfind("_")
+            last = service.rfind("_", 0, service.rfind("_"))
             linked_service = service[prefix_len:last]
             if linked_service not in linked_services:
                 linked_services.append(linked_service)
