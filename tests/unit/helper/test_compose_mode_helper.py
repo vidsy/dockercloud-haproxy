@@ -199,7 +199,8 @@ container3 = {u'ExecIDs': None,
               u'GraphDriver': {u'Data': None, u'Name': u'aufs'}, u'Mounts': [], u'ProcessLabel': u'',
               u'NetworkSettings': {u'Bridge': u'', u'Networks': {
                   u'tmp_default': {u'NetworkID': u'0b29dd1b81a581926f309d4c1e3abd369732de8337912d31b71da5f840878932',
-                                   u'MacAddress': u'02:42:ac:13:00:02', u'GlobalIPv6PrefixLen': 0, u'Links': None,
+                                   u'MacAddress': u'02:42:ac:13:00:02', u'GlobalIPv6PrefixLen': 0,
+                                   u'Links': [u'tmp_auth-api_1:auth-api', u'v2_data-api_1:data-api'],
                                    u'GlobalIPv6Address': u'', u'IPv6Gateway': u'', u'IPAMConfig': None,
                                    u'EndpointID': u'8cac874933ef933f82a182474d849d36b363cde076b75960bc36abac49b4a08e',
                                    u'IPPrefixLen': 16, u'IPAddress': u'172.19.0.2', u'Gateway': u'172.19.0.1',
@@ -358,11 +359,17 @@ class ComposeModeLinkHelperTestCase(unittest.TestCase):
                        'key': u'SSL_BIND_CIPHERS'}, {'value': u'check', 'key': u'HEALTH_CHECK'}]
         self.assertEqual(envvars, get_container_envvars(container1))
 
-    def test_get_link_compose_services(self):
+    def test_get_link_compose_services_pre_1_23_1(self):
         services = [u'auth-api']
-        self.assertEqual(services, _get_linked_compose_services(container1["NetworkSettings"]["Networks"], 'tmp'))
+        self.assertEqual(services, _get_linked_compose_services("1.0.0", container3["NetworkSettings"]["Networks"], 'tmp'))
 
-        self.assertEqual([], _get_linked_compose_services(container1["NetworkSettings"]["Networks"], ''))
+        self.assertEqual([], _get_linked_compose_services("1.0.0", container3["NetworkSettings"]["Networks"], ''))
+
+    def test_get_link_compose_services_post_1_23_1(self):
+        services = [u'auth-api']
+        self.assertEqual(services, _get_linked_compose_services("1.23.1", container1["NetworkSettings"]["Networks"], 'tmp'))
+
+        self.assertEqual([], _get_linked_compose_services("1.23.1", container1["NetworkSettings"]["Networks"], ''))
 
     def test_get_service_links_str(self):
         self.assertEqual([u'tmp_hello', u'tmp_world'], get_service_links_str(links))

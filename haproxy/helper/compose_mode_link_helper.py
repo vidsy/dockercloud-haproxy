@@ -1,4 +1,5 @@
 import logging
+import semver
 
 logger = logging.getLogger("haproxy")
 
@@ -6,11 +7,12 @@ logger = logging.getLogger("haproxy")
 def get_compose_mode_links(docker, haproxy_container):
     labels = haproxy_container.get("Config", {}).get("Labels", {})
     project = labels.get("com.docker.compose.project", "")
+    version = labels.get("com.docker.compose.version", "")
     if not project:
         raise Exception("Cannot read compose labels. Are you using docker compose V2?")
 
     networks = haproxy_container.get("NetworkSettings", {}).get("Networks", {})
-    linked_compose_services = _get_linked_compose_services(networks, project)
+    linked_compose_services = _get_linked_compose_services(version, networks, project)
 
     links = _calc_links(docker, linked_compose_services, project)
     return links, set(["%s_%s" % (project, service) for service in linked_compose_services])
@@ -95,7 +97,7 @@ def get_container_envvars(container):
     return container_evvvars
 
 
-def _get_linked_compose_services(networks, project):
+def _get_linked_compose_services(version, networks, project):
     prefix = "%s_" % project
     prefix_len = len(prefix)
 
@@ -110,7 +112,9 @@ def _get_linked_compose_services(networks, project):
         terms = link.strip().split(":")
         service = terms[0].strip()
         if service and service.startswith(prefix):
-            last = service.rfind("_", 0, service.rfind("_"))
+            last = service.rfind("_")
+            if semver.match(version, ">=1.23.1"):
+                last = service.rfind("_", 0, service.rfind("_"))
             linked_service = service[prefix_len:last]
             if linked_service not in linked_services:
                 linked_services.append(linked_service)
