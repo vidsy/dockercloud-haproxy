@@ -39,7 +39,7 @@ container1 = {u'ExecIDs': None,
          u'Propagation': u'rprivate'}], u'ProcessLabel': u'', u'NetworkSettings': {u'Bridge': u'', u'Networks': {
         u'tmp_default': {u'NetworkID': u'0b29dd1b81a581926f309d4c1e3abd369732de8337912d31b71da5f840878932',
                          u'MacAddress': u'02:42:ac:13:00:04', u'GlobalIPv6PrefixLen': 0,
-                         u'Links': [u'tmp_auth-api_1_c84a38738918:auth-api', u'v2_data-api_1_c84a38738919:data-api'],
+                         u'Links': [u'tmp_auth-api_1:auth-api', u'v2_data-api_1_c84a38738919:data-api'],
                          u'GlobalIPv6Address': u'', u'IPv6Gateway': u'', u'IPAMConfig': None,
                          u'EndpointID': u'1ff219fbde6eade176066f250010e4de41a1e0403083b5413de7c9de3582d6e2',
                          u'IPPrefixLen': 16, u'IPAddress': u'172.19.0.4', u'Gateway': u'172.19.0.1',

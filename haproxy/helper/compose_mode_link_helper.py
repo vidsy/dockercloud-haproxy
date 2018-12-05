@@ -114,7 +114,7 @@ def _get_linked_compose_services(version, networks, project):
         if service and service.startswith(prefix):
             last = service.rfind("_")
             if semver.match(version, ">=1.23.1"):
-                last = service.rfind("_", 0, service.rfind("_"))
+                last = service.rfind("_", service.rfind("_"))
             linked_service = service[prefix_len:last]
             if linked_service not in linked_services:
                 linked_services.append(linked_service)
